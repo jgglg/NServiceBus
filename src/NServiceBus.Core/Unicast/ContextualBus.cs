@@ -12,13 +12,14 @@ namespace NServiceBus.Unicast
     using NServiceBus.Transports;
     using NServiceBus.Unicast.Messages;
     using NServiceBus.Unicast.Routing;
+    using IServiceProvider = NServiceBus.IServiceProvider;
 
     interface IContextualBus
     {
     }
 
     [SkipWeaving]
-    class ContextualBus : IBus, IManageMessageHeaders, IContextualBus
+    class ContextualBus : IBus, IManageMessageHeaders, IContextualBus, IServiceProvider
     {
         readonly IMessageMapper messageMapper;
         readonly Func<BehaviorContext> contextGetter;
@@ -501,9 +502,7 @@ namespace NServiceBus.Unicast
 
         BehaviorContext InvokeSendPipeline(DeliveryOptions sendOptions, LogicalMessage message)
         {
-
             SetReplyToAddressHeader(message);
-
 
             var outgoingContext = new OutgoingContext(context, sendOptions, message);
 
@@ -616,6 +615,11 @@ namespace NServiceBus.Unicast
 
                 return current;
             }
+        }
+
+        public T GetService<T>()
+        {
+            return builder.Build<T>();
         }
     }
 }

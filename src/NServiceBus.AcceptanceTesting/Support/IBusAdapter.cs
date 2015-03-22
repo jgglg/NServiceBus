@@ -50,7 +50,7 @@
         {
             return sendOnlyBus.Send(destination, messageConstructor);
         }
-        
+
         public ICallback Send(string destination, string correlationId, object message)
         {
             return sendOnlyBus.Send(destination, correlationId, message);
