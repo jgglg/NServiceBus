@@ -546,7 +546,7 @@ namespace NServiceBus
     }
     public class static RequestResponseExtensions
     {
-        public static NServiceBus.SendContext<TResponse> RequestResponse<TResponse>(this NServiceBus.IBus bus, object requestMessage) { }
+        public static NServiceBus.SendContext<TResponse> SynchronousRequestResponse<TResponse>(this NServiceBus.IBus bus, object requestMessage) { }
     }
     public class static ScaleOutExtentions
     {
